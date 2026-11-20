@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "version": "0.20.08",
+  "version": "0.20.09",
   "url": "https://adroit-workbench.github.io/",
   "files": {
-    "index.html": "e7239cdbaf3c564c2879ce40b41f2434e3e9f1b43a643640227b9e60c0b6dae5",
-    "manual/index.html": "d94a8253f0e9b59854b6d55d063a41e183b765c1c0c61e2d93bf8252b088a51e",
+    "index.html": "dcf6c8d9e1c9502db2f5cf1753c59b3bac3f92df7082c266b3497553cbec75cd",
+    "manual/index.html": "05c1efef48858c1c3cd6c40a4b9bb2c514ac0c9ca677fe2d3388aaa086002a68",
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   }
 }
