@@ -68,8 +68,34 @@ aside { background: #fafafa; }
 aside a { color: var(--aw-ink); }
 @media (min-width: 701px) and (max-width: 1100px) { header { flex-wrap: wrap; gap: .5rem; } }
 @media (max-width: 700px) { header .header-links { gap: .15rem; width: auto; } }
+
+header .site-switch {
+  display: inline-flex;
+  width: fit-content;
+  gap: .15rem;
+  padding: .2rem;
+  border: 1px solid var(--aw-line);
+  border-radius: 999px;
+  background: var(--aw-surface);
+}
+header .site-switch a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: .35rem .8rem;
+  color: var(--aw-ink);
+  white-space: nowrap;
+}
+header .site-switch a:hover { background: #fff; }
+header .site-switch a[aria-current] { background: var(--aw-ink); color: #fff; }
+@media (max-width: 700px) {
+  header .site-switch a { padding-inline: .68rem; }
+}
+@media (max-width: 700px) {
+  header .site-switch { flex-shrink: 0; }
+}
 </style></head><body>
-<header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">User Manual</span></span></a><nav class="header-links" aria-label="Quick links"><a href="/">Official website</a><a href="#START">Get started</a><a href="#INDEX">Feature index</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/" aria-current="page">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/">Deutsch</a></nav></header>
+<header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">User Manual</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skill Atlas</a><a href="https://adroit-workbench.de/manual/" aria-current="true">AW Manual</a></nav><nav class="header-links" aria-label="Quick links"><a href="/">Official website</a><a href="#START">Get started</a><a href="#INDEX">Feature index</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/" aria-current="page">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/">Deutsch</a></nav></header>
 <div class="shell"><aside><div class="sticky"><span class="eyebrow">Start with your work</span><h2>Two ways to explore</h2><a href="#cases">01 · Learn through use cases</a><a href="#features">02 · Browse by feature</a><h2>Get started</h2><a href="#START">First exercise</a><a href="#samples">Fictional samples</a><a href="#INDEX">Terminology and feature index</a><h2>Popular features</h2><a href="#F02">Sources · Select sources</a><a href="#F07">Quotes and feedback</a><a href="#F10">Fork · Continue a conversation</a><a href="#F18">Report an issue or suggest a feature</a><div class="minor">0.20.17 source version<br>Based on the reviewed Korean edition<br></div></div></aside>
 <main class="main"><section id="home" aria-labelledby="home-title"><div class="hero"><span class="eyebrow">WORKBENCH / EVERYDAY WORK</span><h1 id="home-title">Use AI in<br>your everyday work</h1><p class="lead">From answering email to organizing scattered materials.<br>Follow a use case or look up the feature you need.</p><div class="flow" aria-label="Common workflow"><span>01 Select sources</span><span>02 Make a request</span><span>03 Check the evidence</span><span>04 Save the result</span></div></div>
 <div class="searchbox"><label for="search">What would you like to do?</label><input id="search" type="search" placeholder="Email, PDF, meeting notes, fork, copy…" autocomplete="off"></div>

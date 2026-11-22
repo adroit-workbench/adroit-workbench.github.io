@@ -68,8 +68,34 @@ aside { background: #fafafa; }
 aside a { color: var(--aw-ink); }
 @media (min-width: 701px) and (max-width: 1100px) { header { flex-wrap: wrap; gap: .5rem; } }
 @media (max-width: 700px) { header .header-links { gap: .15rem; width: auto; } }
+
+header .site-switch {
+  display: inline-flex;
+  width: fit-content;
+  gap: .15rem;
+  padding: .2rem;
+  border: 1px solid var(--aw-line);
+  border-radius: 999px;
+  background: var(--aw-surface);
+}
+header .site-switch a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: .35rem .8rem;
+  color: var(--aw-ink);
+  white-space: nowrap;
+}
+header .site-switch a:hover { background: #fff; }
+header .site-switch a[aria-current] { background: var(--aw-ink); color: #fff; }
+@media (max-width: 700px) {
+  header .site-switch a { padding-inline: .68rem; }
+}
+@media (max-width: 700px) {
+  header .site-switch { flex-shrink: 0; }
+}
 </style></head><body>
-<header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">Benutzerhandbuch</span></span></a><nav class="header-links" aria-label="Schnellzugriff"><a href="/">Offizielle Website</a><a href="#START">Erste Schritte</a><a href="#INDEX">Funktionsindex</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/" aria-current="page">Deutsch</a></nav></header>
+<header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">Benutzerhandbuch</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skill Atlas</a><a href="https://adroit-workbench.de/manual/" aria-current="true">AW Manual</a></nav><nav class="header-links" aria-label="Schnellzugriff"><a href="/">Offizielle Website</a><a href="#START">Erste Schritte</a><a href="#INDEX">Funktionsindex</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/" aria-current="page">Deutsch</a></nav></header>
 <div class="shell"><aside><div class="sticky"><span class="eyebrow">Beginnen Sie mit Ihrer Arbeit</span><h2>Zwei Wege durch das Handbuch</h2><a href="#cases">01 · Anhand von Praxisbeispielen lernen</a><a href="#features">02 · Nach Funktionen suchen</a><h2>Erste Schritte</h2><a href="#START">Erste Übung</a><a href="#samples">Fiktive Übungsmaterialien</a><a href="#INDEX">Begriffe und Funktionsindex</a><h2>Häufig genutzte Funktionen</h2><a href="#F02">Sources · Quellen auswählen</a><a href="#F07">Zitate und Feedback</a><a href="#F10">Fork · Gespräch fortsetzen</a><a href="#F18">Problem melden oder Funktion vorschlagen</a><div class="minor">0.20.17 Quellversion<br>Basierend auf der geprüften koreanischen Ausgabe<br></div></div></aside>
 <main class="main"><section id="home" aria-labelledby="home-title"><div class="hero"><span class="eyebrow">WORKBENCH / EVERYDAY WORK</span><h1 id="home-title">KI im<br>Arbeitsalltag nutzen</h1><p class="lead">Von der E-Mail-Antwort bis zum Ordnen verstreuter Unterlagen.<br>Folgen Sie einem Praxisbeispiel oder suchen Sie gezielt nach einer Funktion.</p><div class="flow" aria-label="Typischer Arbeitsablauf"><span>01 Quellen auswählen</span><span>02 Anfrage stellen</span><span>03 Belege prüfen</span><span>04 Ergebnis sichern</span></div></div>
 <div class="searchbox"><label for="search">Was möchten Sie tun?</label><input id="search" type="search" placeholder="E-Mail, PDF, Protokoll, Verzweigen, Kopieren…" autocomplete="off"></div>
