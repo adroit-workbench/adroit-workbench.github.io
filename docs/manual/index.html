@@ -114,7 +114,7 @@ header .site-switch a[aria-current] { background: var(--aw-ink); color: #fff; }
   background: white; color: var(--aw-ink);
 }
 </style></head><body>
-<header><a class="brand" href="/"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">User Manual</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="https://adroit-workbench.de/manual/" aria-current="true">Manual</a></nav><nav class="header-links" aria-label="Quick links"><a href="#START">Get started</a><a href="#INDEX">Feature index</a><a href="/#download">Downloads</a></nav><select id="site-language" class="site-language" aria-label="Language"><option value="en" lang="en" selected>English</option><option value="ko" lang="ko">한국어</option><option value="de" lang="de">Deutsch</option></select></header>
+<header><a class="brand" href="/"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">User Manual</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="/manual/" aria-current="true">Manual</a></nav><nav class="header-links" aria-label="Quick links"><a href="#START">Get started</a><a href="#INDEX">Feature index</a><a href="/#download">Downloads</a></nav><select id="site-language" class="site-language" aria-label="Language"><option value="en" lang="en" selected>English</option><option value="ko" lang="ko">한국어</option><option value="de" lang="de">Deutsch</option></select></header>
 <div class="shell"><aside><div class="sticky"><span class="eyebrow">Start with your work</span><h2>Two ways to explore</h2><a href="#cases">01 · Learn through use cases</a><a href="#features">02 · Browse by feature</a><h2>Get started</h2><a href="#START">First exercise</a><a href="#samples">Fictional samples</a><a href="#INDEX">Terminology and feature index</a><h2>Popular features</h2><a href="#F02">Sources · Select sources</a><a href="#F07">Quotes and feedback</a><a href="#F10">Fork · Continue a conversation</a><a href="#F18">Report an issue or suggest a feature</a><div class="minor">0.20.18 source version<br>Based on the reviewed Korean edition<br></div></div></aside>
 <main class="main"><section id="home" aria-labelledby="home-title"><div class="hero"><span class="eyebrow">WORKBENCH / EVERYDAY WORK</span><h1 id="home-title">Use AI in<br>your everyday work</h1><p class="lead">From answering email to organizing scattered materials.<br>Follow a use case or look up the feature you need.</p><nav class="flow" aria-label="Common workflow"><a href="#step-1" data-stage="step-1">01 Select sources</a><a href="#step-2" data-stage="step-2">02 Make a request</a><a href="#step-3" data-stage="step-3">03 Check the evidence</a><a href="#step-4" data-stage="step-4">04 Save the result</a></nav><section class="stage-guide" id="step-1" tabindex="-1"><h2>Select sources</h2><p>Add the notes and files needed for your request to Sources and exclude unrelated material.</p><ul><li>How to · <a href="#F02">Sources: Select and exclude references</a></li><li>Use cases · <a href="#UC05">Answering questions based on documents</a></li></ul></section><section class="stage-guide" id="step-2" tabindex="-1"><h2>Make a request</h2><p>State the desired result, scope and output format in your request.</p><ul><li>How to · <a href="#F04">Request creation/supplementation/immediate execution</a></li><li>Use cases · <a href="#UC01">Collect various materials and answer customer emails</a></li></ul></section><section class="stage-guide" id="step-3" tabindex="-1"><h2>Check the evidence</h2><p>Check key claims and figures against the original sources and follow up where needed.</p><ul><li>How to · <a href="#F07">Request for correction by quoting part of the answer</a></li><li>Use cases · <a href="#UC03">Comparing two proposals based on the same criteria</a></li></ul></section><section class="stage-guide" id="step-4" tabindex="-1"><h2>Save the result</h2><p>Save the reviewed answer to a note or copy it for your next task.</p><ul><li>How to · <a href="#F08">Save/copy results/continue in other apps</a></li><li>Use cases · <a href="#UC02">Organizing meeting notes into decisions and to-dos</a></li></ul></section></div>
 <div class="searchbox"><label for="search">What would you like to do?</label><input id="search" type="search" placeholder="Email, PDF, meeting notes, fork, copy…" autocomplete="off"></div>
@@ -612,18 +612,38 @@ new ResizeObserver(() => {
 }).observe(siteHeader);
 
 const languageMenu = document.querySelector('#site-language');
+const manualPaths = {en: '/manual/', ko: '/manual/ko/', de: '/manual/de/'};
+const homePaths = {en: '/', ko: '/ko/', de: '/de/'};
+const isManual = location.pathname.startsWith('/manual/');
 languageMenu.addEventListener('change', () => {
-  const paths = {en: '/manual/', ko: '/manual/ko/', de: '/manual/de/'};
+  const paths = isManual ? manualPaths : homePaths;
   if (Object.hasOwn(paths, languageMenu.value)) location.assign(paths[languageMenu.value] + location.hash);
 });
 
-const skillsMenuLink = document.querySelector('.site-switch a[href*="pages.dev"]');
-skillsMenuLink.addEventListener('click', () => {
-  const position = new URL(location.pathname + location.hash, location.origin);
-  position.searchParams.set('resumeScroll', Math.round(window.scrollY));
-  const fragment = new URLSearchParams({lang: document.documentElement.lang, manual: position.pathname + position.search + position.hash});
-  skillsMenuLink.href = 'https://skills.adroit-workbench.pages.dev/#' + fragment;
-});
+const atlasOrigin = 'https://skills.adroit-workbench.pages.dev';
+const language = document.documentElement.lang;
+for (const link of document.querySelectorAll('a[href]')) {
+  const destination = new URL(link.href, location.origin);
+  if (destination.origin !== atlasOrigin) continue;
+  const fragment = new URLSearchParams(destination.hash.slice(1));
+  fragment.set('lang', language);
+
+  const updateLink = () => {
+    if (isManual) {
+      const position = new URL(manualPaths[language] + location.hash, location.origin);
+      position.searchParams.set('resumeScroll', Math.max(0, Math.round(window.scrollY)));
+      fragment.set('manual', position.pathname + position.search + position.hash);
+    } else {
+      fragment.set('manual', manualPaths[language] + '?resumeScroll=0');
+    }
+    destination.hash = fragment.toString();
+    link.href = destination.href;
+  };
+  updateLink();
+  link.addEventListener('click', updateLink);
+  link.addEventListener('contextmenu', updateLink);
+  link.addEventListener('auxclick', updateLink);
+}
 const resumeUrl = new URL(location.href);
 const resumeScroll = resumeUrl.searchParams.get('resumeScroll');
 if (resumeScroll !== null && /^\d{1,7}$/.test(resumeScroll)) {
