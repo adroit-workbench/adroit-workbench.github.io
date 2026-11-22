@@ -94,6 +94,12 @@ header .site-switch a[aria-current] { background: var(--aw-ink); color: #fff; }
 @media (max-width: 700px) {
   header .site-switch { flex-shrink: 0; }
 }
+
+@media screen {
+  header { position: sticky; top: 0; z-index: 5; }
+  aside .sticky { top: calc(var(--site-header-height, 4.5rem) + 1rem); }
+  html { scroll-padding-top: var(--site-header-height, 4.5rem); }
+}
 </style></head><body>
 <header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">업무 활용 매뉴얼</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="https://adroit-workbench.de/manual/" aria-current="true">Manual</a></nav><nav class="header-links" aria-label="빠른 이동"><a href="/">공식 홈페이지</a><a href="#START">처음 시작</a><a href="#INDEX">기능 색인</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">다운로드</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/" aria-current="page">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/">Deutsch</a></nav></header>
 <div class="shell"><aside><div class="sticky"><span class="eyebrow">일하는 방법에서 출발하기</span><h2>두 가지 탐색 경로</h2><a href="#cases">01 · 업무 사례로 배우기</a><a href="#features">02 · 기능으로 찾아보기</a><h2>바로 시작</h2><a href="#START">첫 실습</a><a href="#samples">가상 연습자료</a><a href="#INDEX">용어와 기능 색인</a><h2>자주 찾는 기능</h2><a href="#F02">Sources · 자료 선택</a><a href="#F07">인용 · 수정 의견</a><a href="#F10">Fork · 대화 이어가기</a><a href="#F18">오류 · 기능 건의</a><div class="minor">0.20.17 소스 기준<br>2026.11.15 · 한국어 초판<br></div></div></aside>
@@ -595,7 +601,12 @@ document.getElementById('clear').addEventListener('click',()=>{search.value='';f
 let toastTimer;function notice(text){const t=document.getElementById('toast');t.textContent=text;t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.hidden=true,2500);}
 for(const b of document.querySelectorAll('.copy'))b.addEventListener('click',async()=>{const code=b.closest('.prompt').querySelector('code');try{await navigator.clipboard.writeText(code.textContent);notice('요청 예시를 복사했습니다.');}catch{const selection=getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);notice('예시를 선택했습니다. Ctrl+C 또는 Cmd+C로 복사하세요.');}});
 function updateLanguageLinks(){for(const link of document.querySelectorAll('[data-language]'))link.hash=location.hash;}window.addEventListener('hashchange',updateLanguageLinks);updateLanguageLinks();window.addEventListener('hashchange',route);route();
-</script><script data-site-switch>const skillsMenuLink = document.querySelector('.site-switch a[href*="pages.dev"]');
+</script><script data-site-switch>const siteHeader = document.querySelector('header');
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--site-header-height', siteHeader.offsetHeight + 'px');
+}).observe(siteHeader);
+
+const skillsMenuLink = document.querySelector('.site-switch a[href*="pages.dev"]');
 skillsMenuLink.addEventListener('click', () => {
   const position = new URL(location.pathname + location.hash, location.origin);
   position.searchParams.set('resumeScroll', Math.round(window.scrollY));

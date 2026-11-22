@@ -94,6 +94,12 @@ header .site-switch a[aria-current] { background: var(--aw-ink); color: #fff; }
 @media (max-width: 700px) {
   header .site-switch { flex-shrink: 0; }
 }
+
+@media screen {
+  header { position: sticky; top: 0; z-index: 5; }
+  aside .sticky { top: calc(var(--site-header-height, 4.5rem) + 1rem); }
+  html { scroll-padding-top: var(--site-header-height, 4.5rem); }
+}
 </style></head><body>
 <header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">User Manual</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="https://adroit-workbench.de/manual/" aria-current="true">Manual</a></nav><nav class="header-links" aria-label="Quick links"><a href="/">Official website</a><a href="#START">Get started</a><a href="#INDEX">Feature index</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/" aria-current="page">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/">Deutsch</a></nav></header>
 <div class="shell"><aside><div class="sticky"><span class="eyebrow">Start with your work</span><h2>Two ways to explore</h2><a href="#cases">01 · Learn through use cases</a><a href="#features">02 · Browse by feature</a><h2>Get started</h2><a href="#START">First exercise</a><a href="#samples">Fictional samples</a><a href="#INDEX">Terminology and feature index</a><h2>Popular features</h2><a href="#F02">Sources · Select sources</a><a href="#F07">Quotes and feedback</a><a href="#F10">Fork · Continue a conversation</a><a href="#F18">Report an issue or suggest a feature</a><div class="minor">0.20.17 source version<br>Based on the reviewed Korean edition<br></div></div></aside>
@@ -584,7 +590,12 @@ document.getElementById('clear').addEventListener('click',()=>{search.value='';f
 let toastTimer;function notice(text){const t=document.getElementById('toast');t.textContent=text;t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.hidden=true,2500);}
 for(const b of document.querySelectorAll('.copy'))b.addEventListener('click',async()=>{const code=b.closest('.prompt').querySelector('code');try{await navigator.clipboard.writeText(code.textContent);notice('Example prompt copied.');}catch{const selection=getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);notice('Example selected. Press Ctrl+C or Cmd+C to copy.');}});
 function updateLanguageLinks(){for(const link of document.querySelectorAll('[data-language]'))link.hash=location.hash;}window.addEventListener('hashchange',updateLanguageLinks);updateLanguageLinks();window.addEventListener('hashchange',route);route();
-</script><script data-site-switch>const skillsMenuLink = document.querySelector('.site-switch a[href*="pages.dev"]');
+</script><script data-site-switch>const siteHeader = document.querySelector('header');
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--site-header-height', siteHeader.offsetHeight + 'px');
+}).observe(siteHeader);
+
+const skillsMenuLink = document.querySelector('.site-switch a[href*="pages.dev"]');
 skillsMenuLink.addEventListener('click', () => {
   const position = new URL(location.pathname + location.hash, location.origin);
   position.searchParams.set('resumeScroll', Math.round(window.scrollY));
