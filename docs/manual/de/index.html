@@ -100,8 +100,14 @@ header .site-switch a[aria-current] { background: var(--aw-ink); color: #fff; }
   aside .sticky { top: calc(var(--site-header-height, 4.5rem) + 1rem); }
   html { scroll-padding-top: var(--site-header-height, 4.5rem); }
 }
+
+.site-language {
+  width: auto; max-width: 8rem; min-height: 2.25rem; font: 600 .8rem var(--aw-type);
+  padding: .3rem .55rem; border: 1px solid var(--aw-line); border-radius: 8px;
+  background: white; color: var(--aw-ink);
+}
 </style></head><body>
-<header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">Benutzerhandbuch</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="https://adroit-workbench.de/manual/" aria-current="true">Manual</a></nav><nav class="header-links" aria-label="Schnellzugriff"><a href="/">Offizielle Website</a><a href="#START">Erste Schritte</a><a href="#INDEX">Funktionsindex</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/" aria-current="page">Deutsch</a></nav></header>
+<header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">Benutzerhandbuch</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="https://adroit-workbench.de/manual/" aria-current="true">Manual</a></nav><nav class="header-links" aria-label="Schnellzugriff"><a href="/">Offizielle Website</a><a href="#START">Erste Schritte</a><a href="#INDEX">Funktionsindex</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><select id="site-language" class="site-language" aria-label="Sprache"><option value="en" lang="en">English</option><option value="ko" lang="ko">한국어</option><option value="de" lang="de" selected>Deutsch</option></select></header>
 <div class="shell"><aside><div class="sticky"><span class="eyebrow">Beginnen Sie mit Ihrer Arbeit</span><h2>Zwei Wege durch das Handbuch</h2><a href="#cases">01 · Anhand von Praxisbeispielen lernen</a><a href="#features">02 · Nach Funktionen suchen</a><h2>Erste Schritte</h2><a href="#START">Erste Übung</a><a href="#samples">Fiktive Übungsmaterialien</a><a href="#INDEX">Begriffe und Funktionsindex</a><h2>Häufig genutzte Funktionen</h2><a href="#F02">Sources · Quellen auswählen</a><a href="#F07">Zitate und Feedback</a><a href="#F10">Fork · Gespräch fortsetzen</a><a href="#F18">Problem melden oder Funktion vorschlagen</a><div class="minor">0.20.17 Quellversion<br>Basierend auf der geprüften koreanischen Ausgabe<br></div></div></aside>
 <main class="main"><section id="home" aria-labelledby="home-title"><div class="hero"><span class="eyebrow">WORKBENCH / EVERYDAY WORK</span><h1 id="home-title">KI im<br>Arbeitsalltag nutzen</h1><p class="lead">Von der E-Mail-Antwort bis zum Ordnen verstreuter Unterlagen.<br>Folgen Sie einem Praxisbeispiel oder suchen Sie gezielt nach einer Funktion.</p><div class="flow" aria-label="Typischer Arbeitsablauf"><span>01 Quellen auswählen</span><span>02 Anfrage stellen</span><span>03 Belege prüfen</span><span>04 Ergebnis sichern</span></div></div>
 <div class="searchbox"><label for="search">Was möchten Sie tun?</label><input id="search" type="search" placeholder="E-Mail, PDF, Protokoll, Verzweigen, Kopieren…" autocomplete="off"></div>
@@ -589,17 +595,23 @@ search.addEventListener('input',()=>{if(search.value.trim())filter='all';applyFi
 document.getElementById('clear').addEventListener('click',()=>{search.value='';filter='all';applyFilter();search.focus();});
 let toastTimer;function notice(text){const t=document.getElementById('toast');t.textContent=text;t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.hidden=true,2500);}
 for(const b of document.querySelectorAll('.copy'))b.addEventListener('click',async()=>{const code=b.closest('.prompt').querySelector('code');try{await navigator.clipboard.writeText(code.textContent);notice('Beispielanfrage kopiert.');}catch{const selection=getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);notice('Beispiel ausgewählt. Kopieren Sie es mit Strg+C oder Cmd+C.');}});
-function updateLanguageLinks(){for(const link of document.querySelectorAll('[data-language]'))link.hash=location.hash;}window.addEventListener('hashchange',updateLanguageLinks);updateLanguageLinks();window.addEventListener('hashchange',route);route();
+window.addEventListener('hashchange',route);route();
 </script><script data-site-switch>const siteHeader = document.querySelector('header');
 new ResizeObserver(() => {
   document.documentElement.style.setProperty('--site-header-height', siteHeader.offsetHeight + 'px');
 }).observe(siteHeader);
 
+const languageMenu = document.querySelector('#site-language');
+languageMenu.addEventListener('change', () => {
+  const paths = {en: '/manual/', ko: '/manual/ko/', de: '/manual/de/'};
+  if (Object.hasOwn(paths, languageMenu.value)) location.assign(paths[languageMenu.value] + location.hash);
+});
+
 const skillsMenuLink = document.querySelector('.site-switch a[href*="pages.dev"]');
 skillsMenuLink.addEventListener('click', () => {
   const position = new URL(location.pathname + location.hash, location.origin);
   position.searchParams.set('resumeScroll', Math.round(window.scrollY));
-  const fragment = new URLSearchParams({manual: position.pathname + position.search + position.hash});
+  const fragment = new URLSearchParams({lang: document.documentElement.lang, manual: position.pathname + position.search + position.hash});
   skillsMenuLink.href = 'https://skills.adroit-workbench.pages.dev/#' + fragment;
 });
 const resumeUrl = new URL(location.href);

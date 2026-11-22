@@ -100,8 +100,14 @@ header .site-switch a[aria-current] { background: var(--aw-ink); color: #fff; }
   aside .sticky { top: calc(var(--site-header-height, 4.5rem) + 1rem); }
   html { scroll-padding-top: var(--site-header-height, 4.5rem); }
 }
+
+.site-language {
+  width: auto; max-width: 8rem; min-height: 2.25rem; font: 600 .8rem var(--aw-type);
+  padding: .3rem .55rem; border: 1px solid var(--aw-line); border-radius: 8px;
+  background: white; color: var(--aw-ink);
+}
 </style></head><body>
-<header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">User Manual</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="https://adroit-workbench.de/manual/" aria-current="true">Manual</a></nav><nav class="header-links" aria-label="Quick links"><a href="/">Official website</a><a href="#START">Get started</a><a href="#INDEX">Feature index</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/" aria-current="page">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/">Deutsch</a></nav></header>
+<header><a class="brand" href="#home"><span class="logo" aria-hidden="true">W</span><span>Workbench <span class="edition">User Manual</span></span></a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="https://adroit-workbench.de/manual/" aria-current="true">Manual</a></nav><nav class="header-links" aria-label="Quick links"><a href="/">Official website</a><a href="#START">Get started</a><a href="#INDEX">Feature index</a><a href="https://github.com/adroit-workbench/workbench-releases/releases/latest">Downloads</a></nav><select id="site-language" class="site-language" aria-label="Language"><option value="en" lang="en" selected>English</option><option value="ko" lang="ko">한국어</option><option value="de" lang="de">Deutsch</option></select></header>
 <div class="shell"><aside><div class="sticky"><span class="eyebrow">Start with your work</span><h2>Two ways to explore</h2><a href="#cases">01 · Learn through use cases</a><a href="#features">02 · Browse by feature</a><h2>Get started</h2><a href="#START">First exercise</a><a href="#samples">Fictional samples</a><a href="#INDEX">Terminology and feature index</a><h2>Popular features</h2><a href="#F02">Sources · Select sources</a><a href="#F07">Quotes and feedback</a><a href="#F10">Fork · Continue a conversation</a><a href="#F18">Report an issue or suggest a feature</a><div class="minor">0.20.17 source version<br>Based on the reviewed Korean edition<br></div></div></aside>
 <main class="main"><section id="home" aria-labelledby="home-title"><div class="hero"><span class="eyebrow">WORKBENCH / EVERYDAY WORK</span><h1 id="home-title">Use AI in<br>your everyday work</h1><p class="lead">From answering email to organizing scattered materials.<br>Follow a use case or look up the feature you need.</p><div class="flow" aria-label="Common workflow"><span>01 Select sources</span><span>02 Make a request</span><span>03 Check the evidence</span><span>04 Save the result</span></div></div>
 <div class="searchbox"><label for="search">What would you like to do?</label><input id="search" type="search" placeholder="Email, PDF, meeting notes, fork, copy…" autocomplete="off"></div>
@@ -589,17 +595,23 @@ search.addEventListener('input',()=>{if(search.value.trim())filter='all';applyFi
 document.getElementById('clear').addEventListener('click',()=>{search.value='';filter='all';applyFilter();search.focus();});
 let toastTimer;function notice(text){const t=document.getElementById('toast');t.textContent=text;t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.hidden=true,2500);}
 for(const b of document.querySelectorAll('.copy'))b.addEventListener('click',async()=>{const code=b.closest('.prompt').querySelector('code');try{await navigator.clipboard.writeText(code.textContent);notice('Example prompt copied.');}catch{const selection=getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);notice('Example selected. Press Ctrl+C or Cmd+C to copy.');}});
-function updateLanguageLinks(){for(const link of document.querySelectorAll('[data-language]'))link.hash=location.hash;}window.addEventListener('hashchange',updateLanguageLinks);updateLanguageLinks();window.addEventListener('hashchange',route);route();
+window.addEventListener('hashchange',route);route();
 </script><script data-site-switch>const siteHeader = document.querySelector('header');
 new ResizeObserver(() => {
   document.documentElement.style.setProperty('--site-header-height', siteHeader.offsetHeight + 'px');
 }).observe(siteHeader);
 
+const languageMenu = document.querySelector('#site-language');
+languageMenu.addEventListener('change', () => {
+  const paths = {en: '/manual/', ko: '/manual/ko/', de: '/manual/de/'};
+  if (Object.hasOwn(paths, languageMenu.value)) location.assign(paths[languageMenu.value] + location.hash);
+});
+
 const skillsMenuLink = document.querySelector('.site-switch a[href*="pages.dev"]');
 skillsMenuLink.addEventListener('click', () => {
   const position = new URL(location.pathname + location.hash, location.origin);
   position.searchParams.set('resumeScroll', Math.round(window.scrollY));
-  const fragment = new URLSearchParams({manual: position.pathname + position.search + position.hash});
+  const fragment = new URLSearchParams({lang: document.documentElement.lang, manual: position.pathname + position.search + position.hash});
   skillsMenuLink.href = 'https://skills.adroit-workbench.pages.dev/#' + fragment;
 });
 const resumeUrl = new URL(location.href);

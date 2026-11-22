@@ -3,10 +3,10 @@
   "version": "0.20.17",
   "url": "https://adroit-workbench.de/",
   "files": {
-    "index.html": "ed824ba4bed44ad44c80c00a2c95e4856d3464dff39ff3142f1892499931342b",
-    "manual/index.html": "2b63faf093810e29721c84889a8fce3e609482beac0dd2445337743d9bb4a8dc",
-    "manual/ko/index.html": "d332ce777585358b77d736b61265507e2f11ea0e58d5bbf563f327f4d79f3414",
-    "manual/de/index.html": "77d000492f57d5029070f7d19c19d73030f4e4da286966f99f5f6df1a91c8d81",
+    "index.html": "04bc2fa1985c3252cff54cb1029f393dbd90fe1925a6a19fc20d967bbd884c90",
+    "manual/index.html": "652d21ecfa5ae2d682ceeda01d57aa34d7f948dee0f9be9338c60ab51612efbd",
+    "manual/ko/index.html": "c463edca9e35ec9cd19f2e4964f6c826062998b780e5cccc83882c0ebc67d238",
+    "manual/de/index.html": "1c25f6cae3e45e62e27d410b9a4bee8ac3f21fcdf549c5dbed7b58b6bb5936da",
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   }
 }
