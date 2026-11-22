@@ -97,9 +97,26 @@ header .site-switch a[aria-current] { background: var(--aw-ink); color: #fff; }
   header .site-switch { flex-shrink: 0; }
 }
 </style></head><body>
-<header><a class="brand" href="./"><span aria-hidden="true">W</span>Workbench</a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skill Atlas</a><a href="https://adroit-workbench.de/manual/" aria-current="true">AW Manual</a></nav><nav aria-label="Main menu"><a href="manual/">Manual</a><a href="#download">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/" aria-current="page">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/">Deutsch</a></nav></header>
+<header><a class="brand" href="./"><span aria-hidden="true">W</span>Workbench</a><nav class="site-switch" aria-label="Workbench sites"><a href="https://skills.adroit-workbench.pages.dev/">Skills</a><a href="https://adroit-workbench.de/manual/" aria-current="true">Manual</a></nav><nav aria-label="Main menu"><a href="manual/">Manual</a><a href="#download">Downloads</a></nav><nav class="header-links" aria-label="Language"><a data-language="en" lang="en" hreflang="en" href="/manual/" aria-current="page">English</a><a data-language="ko" lang="ko" hreflang="ko" href="/manual/ko/">한국어</a><a data-language="de" lang="de" hreflang="de" href="/manual/de/">Deutsch</a></nav></header>
 <main><section class="hero"><p class="eyebrow">WORKBENCH / EVERYDAY WORK</p><h1>Start with your own materials<br>AI at work</h1><p class="lead">Choose sources in Obsidian and ask AI for help.<br>Learn with everyday examples such as replying to email, organizing meeting notes and comparing proposals.</p><div class="actions"><a class="button" href="manual/#cases">Start with a use case</a><a class="button secondary" href="manual/#INDEX">Browse features</a><a class="button secondary" href="https://skills.adroit-workbench.pages.dev/">Browse Skills</a></div><p class="quiet">Windows · macOS | Obsidian 1.15 or later | Workbench license and a supported AI connection required</p></section>
 <div class="grid"><section class="card"><p class="eyebrow">01 / Start with a situation</p><h2>How do I approach this task?</h2><p>Follow 11 common work situations from preparing sources to verifying results.</p><ul><li><a href="manual/#UC01">Use several sources to reply to email</a></li><li><a href="manual/#UC02">Turn meeting notes into decisions and tasks</a></li><li><a href="manual/#UC03">Compare two proposals using the same criteria</a></li><li><a href="manual/#UC11">Talk through recurring work to find improvements</a></li></ul><a href="manual/#cases">See all use cases →</a></section><section class="card"><p class="eyebrow">02 / Start with a feature</p><h2>Find the instructions you need</h2><p>Find instructions through the feature index and keyword search.</p><ul><li><a href="manual/#F02">Sources · Choose reference material</a></li><li><a href="manual/#F04">Write, queue and steer requests</a></li><li><a href="manual/#F10">Fork · Continue with conversation context</a></li></ul><a href="manual/#INDEX">View the feature index →</a></section></div>
 <section id="download"><p class="eyebrow">OFFICIAL DOWNLOAD / 0.20.17</p><h2>Get started with Workbench</h2><p>Find the installer and instructions for your operating system.</p><div class="actions"><a class="button" href="https://github.com/adroit-workbench/workbench-releases/releases/download/v0.20.17/Workbench-0.20.17-Windows-x64-Setup.exe">Windows installer</a><a class="button secondary" href="https://github.com/adroit-workbench/workbench-releases/releases/download/v0.20.17/Workbench-0.20.17-macOS-universal.zip">macOS installer</a></div><p><a href="https://github.com/adroit-workbench/workbench-releases/releases/tag/v0.20.17">Release notes, installation and downloads</a> · <a href="manual/#F01">First-time installation</a> · <a href="manual/#F19">Updates and licensing</a></p><p class="quiet">Follow the individual product instructions for installation, sign-in and licensing of other apps.</p></section>
 </main>
-<footer><span>Workbench · JoSH</span><span><a href="manual/">User Manual</a> · <a href="https://github.com/adroit-workbench/workbench-releases">Official release repository</a></span></footer></body></html>
+<footer><span>Workbench · JoSH</span><span><a href="manual/">User Manual</a> · <a href="https://github.com/adroit-workbench/workbench-releases">Official release repository</a></span></footer><script data-site-switch>const skillsMenuLink = document.querySelector('.site-switch a[href*="pages.dev"]');
+skillsMenuLink.addEventListener('click', () => {
+  const position = new URL(location.pathname + location.hash, location.origin);
+  position.searchParams.set('resumeScroll', Math.round(window.scrollY));
+  const fragment = new URLSearchParams({manual: position.pathname + position.search + position.hash});
+  skillsMenuLink.href = 'https://skills.adroit-workbench.pages.dev/#' + fragment;
+});
+const resumeUrl = new URL(location.href);
+const resumeScroll = resumeUrl.searchParams.get('resumeScroll');
+if (resumeScroll !== null && /^\d{1,7}$/.test(resumeScroll)) {
+  history.scrollRestoration = 'manual';
+  window.addEventListener('load', () => requestAnimationFrame(() => {
+    window.scrollTo(0, Number(resumeScroll));
+    resumeUrl.searchParams.delete('resumeScroll');
+    history.replaceState(history.state, '', resumeUrl);
+  }), {once: true});
+}
+</script></body></html>
