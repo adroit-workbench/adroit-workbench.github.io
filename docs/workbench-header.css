@@ -6,9 +6,9 @@ header.workbench-header {
   padding:.75rem clamp(.75rem,3vw,1.5rem);
 }
 .workbench-header .brand { grid-area:brand; align-self:start; min-height:3.25rem; white-space:nowrap; }
-.workbench-header .brand-copy { display:flex; flex-direction:column; line-height:1.1; }
+.workbench-header .brand-copy { align-self:stretch; padding-top:.425rem; display:flex; flex-direction:column; line-height:1.1; }
 .workbench-header .brand-subtitle { margin-top:.2rem; font-size:.75rem; font-weight:550; letter-spacing:0; }
-header.workbench-header .site-switch { grid-area:switch; align-self:start; box-sizing:border-box; }
+header.workbench-header .site-switch { grid-area:switch; align-self:start; box-sizing:border-box; gap:.15rem; padding:.2rem; }
 header.workbench-header .site-switch a {
   justify-content:center; box-sizing:border-box; width:4.25rem; height:2.75rem;
   padding:0; border-radius:999px; font-size:.875rem; font-weight:650;
