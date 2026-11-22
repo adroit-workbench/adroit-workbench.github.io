@@ -1,5 +1,6 @@
 html:has(.workbench-header) { scrollbar-gutter: stable; }
 header.workbench-header {
+  max-width:none; margin-inline:0;
   display:grid; grid-template-columns:9.25rem max-content minmax(0,1fr) auto auto;
   grid-template-areas:"brand switch menu account language";
   align-items:center; justify-content:initial; gap:.5rem .75rem;
