@@ -2,14 +2,14 @@ html:has(.workbench-header) { scrollbar-gutter: stable; }
 header.workbench-header {
   position:sticky; inset-block-start:0; z-index:5;
   max-width:none; margin-inline:0;
-  display:grid; grid-template-columns:9.25rem max-content minmax(0,1fr) auto auto;
+  display:grid; grid-template-columns:14rem max-content minmax(0,1fr) auto auto;
   grid-template-areas:"brand switch menu account language";
   align-items:center; justify-content:initial; gap:.5rem .75rem;
   padding:.75rem clamp(.75rem,3vw,1.5rem);
 }
 .workbench-header .brand { grid-area:brand; align-self:start; min-height:3.25rem; white-space:nowrap; }
-.workbench-header .brand-copy { align-self:stretch; padding-top:.425rem; display:flex; flex-direction:column; line-height:1.1; }
-.workbench-header .brand-subtitle { margin-top:.2rem; font-size:.75rem; font-weight:550; letter-spacing:0; }
+.workbench-header .brand-copy { display:flex; align-items:baseline; gap:.4rem; line-height:1.1; }
+.workbench-header .brand-subtitle { font-size:.75rem; font-weight:550; letter-spacing:0; }
 header.workbench-header .site-switch { grid-area:switch; align-self:start; box-sizing:border-box; gap:.15rem; padding:.2rem; }
 header.workbench-header .site-switch a {
   justify-content:center; box-sizing:border-box; width:4.25rem; height:2.75rem;
@@ -20,14 +20,18 @@ header.workbench-header .site-switch a {
 .workbench-header .site-language { grid-area:language; justify-self:end; }
 @media(max-width:68rem) {
   header.workbench-header {
-    grid-template-columns:9.25rem max-content minmax(0,1fr) auto auto;
+    grid-template-columns:14rem max-content minmax(0,1fr) auto auto;
     grid-template-areas:"brand switch . account language" "menu menu menu menu menu";
   }
 }
 @media(max-width:40rem) {
   header.workbench-header {
-    grid-template-columns:9.25rem minmax(0,1fr);
+    grid-template-columns:12rem minmax(0,1fr);
+    column-gap:.5rem;
     grid-template-areas:"brand switch" "account language" "menu menu";
   }
-  header.workbench-header .site-switch a { width:3.875rem; }
+  header.workbench-header .site-switch a { width:3.125rem; }
+  header.workbench-header .brand { font-size:1.1rem; gap:.4rem; }
+  .workbench-header .brand-copy { gap:.3rem; }
+  .workbench-header .brand-subtitle { font-size:.6875rem; }
 }
