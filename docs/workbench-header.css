@@ -1,0 +1,31 @@
+html:has(.workbench-header) { scrollbar-gutter: stable; }
+header.workbench-header {
+  display:grid; grid-template-columns:9.25rem max-content minmax(0,1fr) auto auto;
+  grid-template-areas:"brand switch menu account language";
+  align-items:center; justify-content:initial; gap:.5rem .75rem;
+  padding:.75rem clamp(.75rem,3vw,1.5rem);
+}
+.workbench-header .brand { grid-area:brand; align-self:start; min-height:3.25rem; white-space:nowrap; }
+.workbench-header .brand-copy { display:flex; flex-direction:column; line-height:1.1; }
+.workbench-header .brand-subtitle { margin-top:.2rem; font-size:.75rem; font-weight:550; letter-spacing:0; }
+header.workbench-header .site-switch { grid-area:switch; align-self:start; box-sizing:border-box; }
+header.workbench-header .site-switch a {
+  justify-content:center; box-sizing:border-box; width:4.25rem; height:2.75rem;
+  padding:0; border-radius:999px; font-size:.875rem; font-weight:650;
+}
+.workbench-header > nav:not(.site-switch) { grid-area:menu; min-width:0; }
+.workbench-header .atlas-account { grid-area:account; }
+.workbench-header .site-language { grid-area:language; justify-self:end; }
+@media(max-width:68rem) {
+  header.workbench-header {
+    grid-template-columns:9.25rem max-content minmax(0,1fr) auto auto;
+    grid-template-areas:"brand switch . account language" "menu menu menu menu menu";
+  }
+}
+@media(max-width:40rem) {
+  header.workbench-header {
+    grid-template-columns:9.25rem minmax(0,1fr);
+    grid-template-areas:"brand switch" "account language" "menu menu";
+  }
+  header.workbench-header .site-switch a { width:3.875rem; }
+}
