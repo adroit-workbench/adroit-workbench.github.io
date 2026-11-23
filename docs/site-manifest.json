@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "version": "0.20.18",
+  "version": "0.20.19",
   "url": "https://adroit-workbench.de/",
   "files": {
-    "index.html": "81fc3f29d205dae9ad57eace43b96801cdbece2ea0a8e40be82314876dc0d572",
-    "ko/index.html": "457bc0df81d7307565847bd59142e4b66039a4ef277a1aac2192b4609ad9b20a",
-    "de/index.html": "193d52c4eee70cb8e6a4703023e068aef5aa563200fd83a46e8225d576803b55",
-    "manual/index.html": "dd998ff89e0c811930d4efe8cd702d9ce07f7daf2cb0066583285629e8c52727",
-    "manual/ko/index.html": "9b71d3ba94bd7ba7f60ebf6bf5f16511d4d93c810dac5dc208f574ea703e4fda",
-    "manual/de/index.html": "ee61c822f953e46dfe2b9ce81a8bca15c468c3f0a784b269e7563c07daae3bdd",
+    "index.html": "2c8f657847f79ac296c68a229402cdad679a9f11856a767456bd59f5223e3dc1",
+    "ko/index.html": "629a4871b615cf403bd73dc4969b08e99ef198324f5b04aacbb0023a4e78a22c",
+    "de/index.html": "3ef132ed624cca94d01678ca08626d2473569262d21732187fc1bfc2df081b23",
+    "manual/index.html": "34ede7ef07c3fa8a786fa18cf49b64945412041c8752e75702369d594bc0032d",
+    "manual/ko/index.html": "805df7aa2eb40624b2fb15071a105545931ad504ab445910874e6d14a293cdc5",
+    "manual/de/index.html": "e369afbbe154d72bc759c074f4e437a037fcf44cfac8b222565f7b936777efe6",
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   }
 }
